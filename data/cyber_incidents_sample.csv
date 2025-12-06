@@ -1,0 +1,5 @@
+incident_id,date,category,subcategory,severity,status,assigned_to,resolution_time_hours,description
+INC-001,2025-11-01,Phishing,Email,High,Resolved,Amit,4.5,"Credential harvesting via email" 
+INC-002,2025-11-03,Malware,Endpoint,Medium,In Progress,Neha,0,"Ransomware detection"
+INC-003,2025-11-05,Phishing,Website,High,Open,Raj,0,"Fake login page"
+INC-004,2025-11-08,Brute Force,Authentication,Low,Resolved,Anita,1.2,"Failed login attempts"
