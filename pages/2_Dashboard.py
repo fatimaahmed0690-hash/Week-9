@@ -1,4 +1,4 @@
-# pages/2_Dashboard.py
+
 import streamlit as st
 from database_manager import DatabaseManager
 import pandas as pd
@@ -167,3 +167,4 @@ def dashboard_page():
 
 if __name__ == "__main__":
     dashboard_page()
+
