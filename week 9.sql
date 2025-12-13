@@ -1,32 +1,26 @@
-CREATE DATABASE IF NOT EXISTS week9_db;
-USE week9_db;
+mysql -u root -p 
 
+DROP DATABASE IF EXISTS week9_cyber_db;
 
-CREATE TABLE IF NOT EXISTS users (
+CREATE DATABASE week9_cyber_db;
+
+DROP USER IF EXISTS 'week9user'@'localhost';
+
+CREATE USER 'week9user'@'localhost'
+IDENTIFIED VIA mysql_native_password
+USING PASSWORD('MyPassword123');
+
+GRANT ALL PRIVILEGES ON week9_cyber_db.* TO 'week9user'@'localhost';
+
+FLUSH PRIVILEGES;
+
+USE week9_cyber_db;
+
+CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) UNIQUE,
-    password_hash VARCHAR(255)
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(50) NOT NULL
 );
-
-CREATE TABLE IF NOT EXISTS incidents (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    incident_id VARCHAR(50) UNIQUE,
-    category VARCHAR(100),
-    subcategory VARCHAR(100),
-    severity VARCHAR(50),
-    status VARCHAR(50),
-    assigned_to VARCHAR(50),
-    resolution_time_hours FLOAT,
-    description TEXT,
-    date DATE
-);
-
-
-INSERT INTO users (username, password_hash)
-VALUES ('admin', SHA2('admin123',256));
-
-INSERT INTO incidents (incident_id, category, subcategory, severity, status, assigned_to, resolution_time_hours, description, date)
-VALUES
-('INC-001','Malware','Ransomware','High','Open','John',5.0,'Malware detected','2025-01-01');
-
-
+EXIT;
+mysql -u week9user -p
+MyPassword123
