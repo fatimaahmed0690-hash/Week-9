@@ -1,28 +1,23 @@
-from database_manager import DatabaseManager
-from auth import register_user
-import pandas as pd
+import mysql.connector
 
-db = DatabaseManager(user="week9user", password="MyPassword123", database="week9_db")
+conn = mysql.connector.connect(
+    host="localhost",
+    user="week9user",
+    password="MyPassword123",
+    database="week9_cyber_db"
+)
 
-if not db.get_user("admin"):
-    register_user("admin", "admin123", role="admin")
+cursor = conn.cursor()
 
-db.cursor.execute("DELETE FROM cyber_incidents")
-db.conn.commit()
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(50) NOT NULL
+)
+""")
 
-df = pd.read_csv("data/cyber_incidents_sample.csv")
-for _, row in df.iterrows():
-    incident = {
-        "incident_id": row["incident_id"],
-        "date": row["date"],
-        "category": row["category"],
-        "subcategory": row["subcategory"],
-        "severity": row["severity"],
-        "status": row["status"],
-        "assigned_to": row["assigned_to"],
-        "resolution_time_hours": row["resolution_time_hours"],
-        "description": row["description"]
-    }
-    db.insert_incident(incident)
+conn.commit()
+conn.close()
 
-print("Database initialized successfully!")
+print(" Database ready successfully")
